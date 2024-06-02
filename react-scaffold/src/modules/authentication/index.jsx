@@ -1,11 +1,11 @@
 import React from 'react'
 import Login from './Login'
 import Register from './Register'
-import { useGetPokemonByNameQuery } from '../../redux/api.service'
+import { useGetUsersQuery } from '../../redux/api.service'
 
 // Define a functional component named MyComponent
 function Authentication() {
-  const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur')
+  const { data, error, isLoading } = useGetUsersQuery()
 
   return (
     <div>
@@ -16,8 +16,7 @@ function Authentication() {
           <>Loading...</>
         ) : data ? (
           <>
-            <h3>{data.species.name}</h3>
-            <img src={data.sprites.front_shiny} alt={data.species.name} />
+            <h3>{JSON.stringify(data)}</h3>
           </>
         ) : null}
       </div>

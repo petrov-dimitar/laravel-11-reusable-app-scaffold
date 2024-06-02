@@ -12,6 +12,17 @@ export const pokemonApi = createApi({
   }),
 })
 
+export const coreAPI = createApi({
+  reducerPath: 'coreAPI',
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
+  endpoints: (builder) => ({
+    getUsers: builder.query({
+      query: (name) => `/users`,
+    }),
+  }),
+})
+
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const { useGetPokemonByNameQuery } = pokemonApi
+export const { useGetUsersQuery } = coreAPI

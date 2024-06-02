@@ -17,6 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
             '/users',
         ]);
 
+        $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
+
         // $middleware->append(\App\Http\Middleware\ApiKeyMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
