@@ -46,9 +46,11 @@ class UserController extends Controller
     )]
     public function index()
     {
-        \Log::info('UserController index method accessed.');
+            // Fetch all users from the database
+            $users = User::all();
 
-        return response()->json(['message' => 'This is a simple text message returned as JSON.']);
+            // Return the users as a JSON response
+            return response()->json($users);
     }
 
     #[OA\Post(
