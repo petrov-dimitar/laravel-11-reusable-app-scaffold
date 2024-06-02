@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres-laravel-01
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/folders/postgres:/data/postgres
+    env_file:
+      - docker.env
+    networks:
+      - postgres
+
+#   be:
+#     build:
+#       dockerfile: Dockerfile
+#       context: ./revolut-expenses-core-be
+#     volumes:
+#       - ./revolut-expenses-core-be:/app
+#       - /app/node_modules
+#     command: npm run start:dev
+#     depends_on: 
+#       - postgres
+#     ports:
+#       - 3000:3000
+#     networks:
+#       - postgres
+#     env_file:
+#       - docker.env
+
+networks:
+  postgres:
+    driver: bridge
+
+      # fe:
+  #   build: ./revolut-expenses-core-fe
+  #   ports:
+  #     - 5173:5173
