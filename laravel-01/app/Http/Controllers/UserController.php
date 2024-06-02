@@ -141,4 +141,27 @@ class UserController extends Controller
     {
         //
     }
+
+       /**
+     * Get all transactions for a specific user.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserTransactions(string $id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        // If user not found, return error response
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Retrieve all transactions for the user
+        $transactions = $user->transactions()->get();
+
+        // Return the transactions as a JSON response
+        return response()->json($transactions);
+    }
 }

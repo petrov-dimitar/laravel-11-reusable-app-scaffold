@@ -12,17 +12,6 @@ function Authentication() {
 
   return (
     <div>
-      <div className="App">
-        {error ? (
-          <>Oh no, there was an error</>
-        ) : isLoading ? (
-          <>Loading...</>
-        ) : data ? (
-          <>
-            <h3>{JSON.stringify(data)}</h3>
-          </>
-        ) : null}
-      </div>
       <h1>Authentication View</h1>
       {isLoggedIn ? (
         <UserProfile />

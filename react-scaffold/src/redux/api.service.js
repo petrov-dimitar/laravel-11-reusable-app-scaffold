@@ -1,12 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// Define a service using a base URL and expected endpoints
 export const coreAPI = createApi({
   reducerPath: 'coreAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     prepareHeaders: (headers) => {
-      // Get the token from sessionStorage
       const token = sessionStorage.getItem('access_token')
       if (token) {
         headers.set('Authorization', `Bearer ${token}`)
@@ -15,6 +13,7 @@ export const coreAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // Existing endpoints...
     getUsers: builder.query({
       query: () => '/users',
     }),
@@ -27,7 +26,6 @@ export const coreAPI = createApi({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
-          // Store the access token in sessionStorage
           sessionStorage.setItem('access_token', data.access_token)
         } catch (error) {
           console.error('Failed to login:', error)
@@ -37,10 +35,16 @@ export const coreAPI = createApi({
     getLoggedInUser: builder.query({
       query: () => '/api/me',
     }),
+    // New endpoint for fetching transactions
+    getTransactions: builder.query({
+      query: () => '/api/transactions',
+    }),
   }),
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetUsersQuery, useLoginMutation, useGetLoggedInUserQuery } =
-  coreAPI
+export const {
+  useGetUsersQuery,
+  useLoginMutation,
+  useGetLoggedInUserQuery,
+  useGetTransactionsQuery,
+} = coreAPI
