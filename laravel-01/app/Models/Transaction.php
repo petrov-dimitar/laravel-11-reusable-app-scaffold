@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Models\CurrencyAccount;
 
 class Transaction extends Model
 {
@@ -20,8 +20,8 @@ class Transaction extends Model
         'result',
     ];
 
-    public function user()
+    public function currencyAccount()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(CurrencyAccount::class);
     }
 }

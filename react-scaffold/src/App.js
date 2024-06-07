@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom'
 import { AppBar, Toolbar, Button } from '@mui/material'
 import { useGetLoggedInUserQuery } from './redux/api.service'
+import GoCardlessFlowPage from './modules/goCardless'
 
 function App() {
   const { data: loggedInUser } = useGetLoggedInUserQuery() // Check if the user is logged in
@@ -20,30 +21,49 @@ function App() {
       <Router>
         <AppBar position="static">
           <Toolbar>
-            <Button component={Link} to="/transactions" color="inherit">
-              Transactions
-            </Button>
-            <Button component={Link} to="/authentication" color="inherit">
-              Authentication
+            <div
+              style={{
+                flexGrow: 1,
+              }}
+            >
+              <Button component={Link} to="/transactions" color="inherit">
+                Transactions
+              </Button>
+              <Button component={Link} to="/authentication" color="inherit">
+                Authentication
+              </Button>
+            </div>
+
+            <Button component={Link} to="/new-account" color="inherit">
+              Add New Account
             </Button>
             {/* Add more navigation buttons as needed */}
           </Toolbar>
         </AppBar>
-        <Routes>
-          <Route
-            path="/transactions"
-            element={
-              loggedInUser ? (
-                <TransactionTable />
-              ) : (
-                <Navigate to="/authentication" />
-              )
-            }
-          />
-          <Route path="/authentication" element={<Authentication />} />
-          {/* Define other routes here */}
-          <Route path="/" element={<Navigate to="/transactions" />} />
-        </Routes>
+
+        <body
+          style={{
+            padding: '16px',
+          }}
+        >
+          <Routes>
+            <Route
+              path="/transactions"
+              element={
+                loggedInUser ? (
+                  <TransactionTable />
+                ) : (
+                  <Navigate to="/authentication" />
+                )
+              }
+            />
+            <Route path="/authentication" element={<Authentication />} />
+            <Route path="/new-account" element={<GoCardlessFlowPage />} />
+
+            {/* Define other routes here */}
+            <Route path="/" element={<Navigate to="/transactions" />} />
+          </Routes>
+        </body>
       </Router>
     </div>
   )

@@ -14,7 +14,7 @@ class ModifyUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('gocardless_token', 1024)->change(); // Change the length to 512 characters
+            $table->string('gocardless_token', 1024)->nullable()->change(); // Change the length to 512 characters
         });
     }
 

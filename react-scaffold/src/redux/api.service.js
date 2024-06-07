@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { setUser } from './slicers/userSlice'
 
 export const coreAPI = createApi({
   reducerPath: 'coreAPI',
@@ -13,7 +14,6 @@ export const coreAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Existing endpoints...
     getUsers: builder.query({
       query: () => '/users',
     }),
@@ -34,10 +34,23 @@ export const coreAPI = createApi({
     }),
     getLoggedInUser: builder.query({
       query: () => '/api/me',
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          dispatch(setUser(data))
+        } catch (error) {
+          console.error('Failed to fetch logged in user:', error)
+        }
+      },
     }),
-    // New endpoint for fetching transactions
     getTransactions: builder.query({
       query: () => '/api/transactions',
+    }),
+    getBanksByCountry: builder.query({
+      query: (country) => ({
+        url: `api/banks/${country}`,
+        method: 'GET',
+      }),
     }),
   }),
 })
@@ -47,4 +60,5 @@ export const {
   useLoginMutation,
   useGetLoggedInUserQuery,
   useGetTransactionsQuery,
+  useGetBanksByCountryQuery,
 } = coreAPI

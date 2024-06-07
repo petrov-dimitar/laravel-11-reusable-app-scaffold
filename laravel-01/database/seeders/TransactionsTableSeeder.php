@@ -1,7 +1,7 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\CurrencyAccount;
 use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 
@@ -16,13 +16,13 @@ class TransactionsTableSeeder extends Seeder
         $numberOfTransactions = 10;
 
         // Retrieve all users from the database
-        $users = User::all();
+        $currencyAccounts = CurrencyAccount::all();
 
         // Generate and insert transactions for each user
-        foreach ($users as $user) {
+        foreach ($currencyAccounts as $currencyAccount) {
             for ($i = 0; $i < $numberOfTransactions; $i++) {
                 Transaction::create([
-                    'user_id' => $user->id,
+                    'currency_account_id' => $currencyAccount->id,
                     'date' => now(),
                     'iban' => '1234567890',
                     'bank' => 'Example Bank',

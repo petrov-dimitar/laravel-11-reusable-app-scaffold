@@ -46,4 +46,35 @@ class GoCardlessController extends Controller
             return response()->json(['error' => 'Failed to create token'], $response->status());
         }
     }
+
+    public function getBanksForCountry(Request $request, $country)
+    {
+        // Retrieve the authenticated user
+        $auth_user = Auth::user();
+        
+        // Find the user by ID
+        $user = User::find($auth_user->id);
+
+        // Check if the user has a GoCardless token
+        if (!$user->gocardless_token) {
+            return response()->json(['error' => 'GoCardless token not found'], 401);
+        }
+
+        // Make the GET request to the GoCardless API
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $user->gocardless_token,
+        ])->get('https://bankaccountdata.gocardless.com/api/v2/institutions/', [
+            'country' => $country
+        ]);
+
+        // Check if the request was successful
+        if ($response->successful()) {
+            // Return the list of banks
+            return response()->json($response->json(), 200);
+        } else {
+            // Return an error response
+            return response()->json(['error' => 'Failed to fetch banks'], $response->status());
+        }
+    }
 }

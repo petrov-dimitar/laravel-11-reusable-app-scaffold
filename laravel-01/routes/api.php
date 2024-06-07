@@ -21,3 +21,5 @@ Route::get('/transactions', [TransactionController::class, 'getAllTransactions']
 
 // Go Cardless Routes
 Route::middleware('auth:api')->post('/create-token', [GoCardlessController::class, 'createToken']);
+
+Route::middleware('auth:api')->get('/banks/{country}', [GoCardlessController::class, 'getBanksForCountry']);
