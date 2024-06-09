@@ -13,7 +13,13 @@ const UserProfile = () => {
   }
 
   if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error fetching user data: {error.message}</p>
+  if (error)
+    return (
+      <div>
+        <p>Error fetching user data: {error.message}</p>
+        <button onClick={handleLogout}>Force Logout Logout</button>
+      </div>
+    )
 
   return (
     <div>

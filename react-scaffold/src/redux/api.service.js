@@ -52,6 +52,14 @@ export const coreAPI = createApi({
         method: 'GET',
       }),
     }),
+    // Add the createAgreement endpoint
+    createAgreement: builder.mutation({
+      query: (requestData) => ({
+        url: '/api/gocardless/agreement',
+        method: 'POST',
+        body: requestData,
+      }),
+    }),
   }),
 })
 
@@ -61,4 +69,5 @@ export const {
   useGetLoggedInUserQuery,
   useGetTransactionsQuery,
   useGetBanksByCountryQuery,
+  useCreateAgreementMutation, // Add this line to access the createAgreement mutation hook
 } = coreAPI
