@@ -3,46 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use WebSocket\Client;
 
 class ExampleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function connectToWebSocket(Request $request)
     {
-        //
-    }
+        $client = new Client("ws://localhost:8081");
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $client->send("Hello, WebSocket server LARAVEL!");
+        echo "Sent: Hello, WebSocket server LARAVEL!\n";
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $response = $client->receive();
+        echo "Received: {$response}\n";
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $client->close();
     }
 }

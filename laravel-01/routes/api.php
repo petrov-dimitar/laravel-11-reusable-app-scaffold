@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\GoCardlessController;
-
+use App\Http\Controllers\ExampleController;
 
     // General
     Route::get('/', function () {
@@ -24,3 +24,5 @@ Route::middleware('auth:api')->post('/create-token', [GoCardlessController::clas
 
 Route::middleware('auth:api')->get('/banks/{country}', [GoCardlessController::class, 'getBanksForCountry']);
 Route::middleware('auth:api')->post('/gocardless/agreement', [GoCardlessController::class, 'createAgreement']);
+
+Route::get('/send-message-to-websocket-server', [ExampleController::class, 'connectToWebSocket']);

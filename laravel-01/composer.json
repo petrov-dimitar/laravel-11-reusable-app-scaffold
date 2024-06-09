@@ -6,9 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "amphp/websocket-client": "^2.0",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^11.0",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
+        "pusher/pusher-php-server": "^7.2",
+        "textalk/websocket": "^1.5",
         "tymon/jwt-auth": "^2.1",
         "zircote/swagger-php": "^4.9"
     },

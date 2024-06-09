@@ -12,6 +12,7 @@ import {
 import { AppBar, Toolbar, Button } from '@mui/material'
 import { useGetLoggedInUserQuery } from './redux/api.service'
 import GoCardlessFlowPage from './modules/goCardless'
+import WebSocketComponent from './modules/example/WebSocketComponent'
 
 function App() {
   const { data: loggedInUser } = useGetLoggedInUserQuery() // Check if the user is logged in
@@ -20,6 +21,7 @@ function App() {
     <div className="App">
       <Router>
         <AppBar position="static">
+          <WebSocketComponent />
           <Toolbar>
             <div
               style={{
